@@ -1,5 +1,4 @@
-Train is logical game written in javascript, html, css.
-It is implemented using object oriented design and loosely couples architecture. The idea is to support multiple presentation layers (div, html5 canvas, etc), multiple user input (human vs computer), multiple data access layers (local, remote - rest json api, clound storage for levels).
+Train is logical game written in javascript, html, css. Backend part will be implemented in TBA.
+Project is implemented using object oriented design and loosely coupled architecture. The idea is to support multiple presentation layers (div, html5 canvas, etc), multiple user input (human vs computer), multiple data access layers (local, remote - rest json api, cloud storage, etc) and so on. Each part can be replacable.
 
-
-Originaly developed by Golem for MS-DOS.
+Originaly developed by Golem in assembler for MS-DOS.
