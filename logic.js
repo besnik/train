@@ -1,6 +1,6 @@
 /* 
 class logic
-represents business logic of the train
+	represents business logic of the train
 
 ctor parameters
 	n/a
@@ -10,6 +10,8 @@ public methods
 	tick - handles logic of clock's tick event
 ***************************/
 function logic() {
+	this.index = 0;
+
 	
 	this.keyDown = function (key, app) {
 		this.handleClock(key, app);
@@ -48,7 +50,10 @@ function logic() {
 	};
 	
 	this.tick = function(app) {
-		var train = app.level.train;
-		train.move();
+		this.index++;
+		if (this.index >= app.config.ticksPerStep) {
+			this.index = 0;
+			app.level.train.move();
+		}
 	};
 }

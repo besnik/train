@@ -12,6 +12,7 @@ public methods
 function train() {
 	this.x = 0;
 	this.y = 0;
+	this.type = "train";
 	this.direction = "right";
 	this.step = 1;
 	

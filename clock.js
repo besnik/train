@@ -23,7 +23,6 @@ function clock(interval, callback, callbackScope) {
 	this.intervalId = null;
 	
 	
-	
 	this.start = function () {
 		if (!this.isRunning()) {
 			var self = this; // self is used to create closure and keep ref to clock instance in anonymous event handler

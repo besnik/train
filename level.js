@@ -7,4 +7,5 @@ function level() {
 	this.sizeY = 0;
 	this.name = "";
 	this.train = null;
+	this.walls = null;
 }
