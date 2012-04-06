@@ -2,7 +2,10 @@
 levelRepository class
 	loads level data for given name
 *********************************************/
-function levelRepository() {
+function levelRepository(config) {
+	if (typeof config !== "object") { throw new Error("Config was not provided!"); }
+	this.config = config;
+
 	this.load = function (name) {
 		var l = null;
 		
@@ -26,6 +29,7 @@ function levelRepository() {
 		l.name = "test level";
 		l.sizeX = 8;
 		l.sizeY = 6;
+		l.config = this.config;
 		
 		// train data
 		var t = new train();

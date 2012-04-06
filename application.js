@@ -30,7 +30,7 @@ function application() {
         this.services.l = new logic();
         this.services.k = new keyboard(this.keyDown, this);
         this.services.v = new view();
-        this.services.r = new levelRepository();
+        this.services.r = new levelRepository(this.config);
 		this.services.c = new clock(this.config.clockInterval, this.tick, this);
 		
 		// load and init level

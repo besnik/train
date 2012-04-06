@@ -29,4 +29,20 @@ function train() {
 	this.setLeftDirection  = function () { this.direction = "left";  };
 	this.setDownDirection  = function () { this.direction = "down";  };
 	this.setUpDirection    = function () { this.direction = "up";    };
+	
+	this.getFuturePosition = function () {
+		var clone = new train();
+		clone.x = this.x;
+		clone.y = this.y;
+		clone.direction = this.direction;
+		clone.step = this.step;
+		
+		clone.move();
+		
+		return clone; // we are actually interested only in (x,y)
+	};
+	
+	this.setCrashing = function () { this.type = "trainCrashing"; };
+	this.setCrashed = function () { this.type = "trainCrashed"; };
+	this.isCrashing = function () { return this.type = "trainCrashing"; };
 }

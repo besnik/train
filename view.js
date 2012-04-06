@@ -36,6 +36,24 @@ function view() {
 		d.addImage(this.imageBasePath + "train4.jpg");
 		this.images[d.name] = d;
 		
+		// train crashing
+		var d = new imageData();
+		d.name = "trainCrashing";
+		d.addImage(this.imageBasePath + "trainCrashing1.jpg");
+		d.addImage(this.imageBasePath + "trainCrashing2.jpg");
+		d.addImage(this.imageBasePath + "trainCrashing3.jpg");
+		d.addImage(this.imageBasePath + "trainCrashing4.jpg");
+		this.images[d.name] = d;
+		
+		// train crashed
+		var d = new imageData();
+		d.name = "trainCrashed";
+		d.addImage(this.imageBasePath + "trainCrashed1.jpg");
+		d.addImage(this.imageBasePath + "trainCrashed2.jpg");
+		d.addImage(this.imageBasePath + "trainCrashed3.jpg");
+		d.addImage(this.imageBasePath + "trainCrashed4.jpg");
+		this.images[d.name] = d;
+		
 		// wall data
 		var d = new imageData();
 		d.name = "wall";
