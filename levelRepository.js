@@ -32,10 +32,10 @@ function levelRepository(config) {
 		l.config = this.config;
 		
 		// train data
-		var t = new train();
+		var t = new locomotive();
 		t.x = 3;
 		t.y = 2;
-		l.train = t;
+		l.locomotive = t;
 		
 		// walls data
 		var walls = [];
@@ -81,7 +81,7 @@ function levelRepository(config) {
 			var w = l.walls[key];
 			items.push(w); 
 		}
-		items.push(l.train);
+		items.push(l.locomotive);
 		viewModel.items = items;
 		
 		l.viewModel = viewModel;

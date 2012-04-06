@@ -10,8 +10,9 @@ function level() {
 	this.config = null; // global config object
 	
 	// objects
-	this.train = null;
+	this.locomotive = null;
 	this.walls = null;
+	this.viewModel = null;
 	
 	// moving state
 	this.index = 0;

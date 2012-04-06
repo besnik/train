@@ -29,7 +29,7 @@ function view() {
 	this.initImages = function () {
 		// train data
 		var d = new imageData();
-		d.name = "train";
+		d.name = "locomotive";
 		d.addImage(this.imageBasePath + "train1.jpg");
 		d.addImage(this.imageBasePath + "train2.jpg");
 		d.addImage(this.imageBasePath + "train3.jpg");
@@ -38,7 +38,7 @@ function view() {
 		
 		// train crashing
 		var d = new imageData();
-		d.name = "trainCrashing";
+		d.name = "locomotiveCrashing";
 		d.addImage(this.imageBasePath + "trainCrashing1.jpg");
 		d.addImage(this.imageBasePath + "trainCrashing2.jpg");
 		d.addImage(this.imageBasePath + "trainCrashing3.jpg");
@@ -47,7 +47,7 @@ function view() {
 		
 		// train crashed
 		var d = new imageData();
-		d.name = "trainCrashed";
+		d.name = "locomotiveCrashed";
 		d.addImage(this.imageBasePath + "trainCrashed1.jpg");
 		d.addImage(this.imageBasePath + "trainCrashed2.jpg");
 		d.addImage(this.imageBasePath + "trainCrashed3.jpg");

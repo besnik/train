@@ -39,46 +39,46 @@ function logic() {
 	};
 	
 	this.handleTrain = function (key, app) {
-		var train = app.level.train;
+		var l = app.level.locomotive;
 		switch (key) {
 			case 39:
-				train.setRightDirection();
+				l.setRightDirection();
 				break;
 			case 37:
-				train.setLeftDirection();
+				l.setLeftDirection();
 				break;
 			case 40:
-				train.setDownDirection();
+				l.setDownDirection();
 				break;
 			case 38:
-				train.setUpDirection();
+				l.setUpDirection();
 				break;
 		}
 	};
 	
 	this.tick = function (app) {
 		var level = app.level;
-		var train = level.train;
+		var locomotive = level.locomotive;
 		level.index++;
 		
 		if (level.index >= app.config.ticksPerStep) {
 			level.index = 0;
 			
 			// if crashed and train is finished with crashing animation, set to crashed animation
-			if (level.isStatusCrashed() && train.isCrashing()) { 
-				train.setCrashed();
+			if (level.isStatusCrashed() && locomotive.isCrashing()) { 
+				locomotive.setCrashed();
 				// maybe show message to restart level?
 			}
 			
 			// if running, detect colision and stop if necessary
 			if (level.isStatusRunning() && this.detectCrash(app)) {
 					level.setStatusCrashed();
-					train.setCrashing();
+					locomotive.setCrashing();
 				};	
 			
 			// move if all previous checks passed
 			if (level.isStatusRunning()) {
-				level.train.move();
+				level.locomotive.move();
 			};
 		}
 	};
@@ -89,10 +89,10 @@ function logic() {
 		// 3. crash (stop)
 		
 		var isCrashed = false;
-		var train = app.level.train;
+		var locomotive = app.level.locomotive;
 		var walls = app.level.walls;
 		
-		var position = train.getFuturePosition();
+		var position = locomotive.getFuturePosition();
 		
 		for (var i = 0; i < walls.length; i++) {
 			if (this.isColision(position, walls[i])) {
