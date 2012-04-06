@@ -39,7 +39,7 @@ function logic() {
 	};
 	
 	this.handleTrain = function (key, app) {
-		var l = app.level.locomotive;
+		var l = app.level.train.locomotive;
 		switch (key) {
 			case 39:
 				l.setRightDirection();
@@ -58,7 +58,7 @@ function logic() {
 	
 	this.tick = function (app) {
 		var level = app.level;
-		var locomotive = level.locomotive;
+		var locomotive = level.train.locomotive;
 		level.index++;
 		
 		if (level.index >= app.config.ticksPerStep) {
@@ -78,7 +78,7 @@ function logic() {
 			
 			// move if all previous checks passed
 			if (level.isStatusRunning()) {
-				level.locomotive.move();
+				locomotive.move();
 			};
 		}
 	};
@@ -89,7 +89,7 @@ function logic() {
 		// 3. crash (stop)
 		
 		var isCrashed = false;
-		var locomotive = app.level.locomotive;
+		var locomotive = app.level.train.locomotive;
 		var walls = app.level.walls;
 		
 		var position = locomotive.getFuturePosition();

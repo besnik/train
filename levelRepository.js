@@ -31,11 +31,25 @@ function levelRepository(config) {
 		l.sizeY = 6;
 		l.config = this.config;
 		
-		// train data
-		var t = new locomotive();
-		t.x = 3;
-		t.y = 2;
-		l.locomotive = t;
+		// locomotive
+		var loc = new locomotive();
+		loc.x = 3;
+		loc.y = 2;
+		
+		// train
+		var t = new train(loc);
+		l.train = t;
+		
+		// jewels
+		var jewels = [];
+		
+		var j = new levelItem();
+		j.x = 5;
+		j.y = 3;
+		j.type = "jewel"
+		jewels.push(j);
+		
+		l.jewels = jewels;
 		
 		// walls data
 		var walls = [];
@@ -77,13 +91,23 @@ function levelRepository(config) {
 		viewModel.sizeY = l.sizeY;
 		
 		var items = [];
+		
+		// walls
 		for (var key in l.walls) { 
 			var w = l.walls[key];
 			items.push(w); 
 		}
-		items.push(l.locomotive);
-		viewModel.items = items;
 		
+		// locomotive
+		items.push(l.train.locomotive);
+		
+		// jewels
+		for (var key in l.jewels) { 
+			var j = l.jewels[key];
+			items.push(j); 
+		}
+		
+		viewModel.items = items;
 		l.viewModel = viewModel;
 	};
 }

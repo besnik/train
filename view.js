@@ -54,6 +54,15 @@ function view() {
 		d.addImage(this.imageBasePath + "trainCrashed4.jpg");
 		this.images[d.name] = d;
 		
+		// jewel
+		var d = new imageData();
+		d.name = "jewel";
+		d.addImage(this.imageBasePath + "jewel1.jpg");
+		d.addImage(this.imageBasePath + "jewel2.jpg");
+		d.addImage(this.imageBasePath + "jewel3.jpg");
+		d.addImage(this.imageBasePath + "jewel4.jpg");
+		this.images[d.name] = d;
+
 		// wall data
 		var d = new imageData();
 		d.name = "wall";

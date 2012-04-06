@@ -1,7 +1,7 @@
 /* 
 level class
 	holds all domain data and state for the level
-*****************************************/
+**************************************************/
 function level() {
 	// level params
 	this.sizeX = 0;
@@ -10,8 +10,9 @@ function level() {
 	this.config = null; // global config object
 	
 	// objects
-	this.locomotive = null;
+	this.train = null;
 	this.walls = null;
+	this.jewels = null;
 	this.viewModel = null;
 	
 	// moving state

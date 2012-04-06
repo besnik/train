@@ -1,4 +1,54 @@
-Train is logical game written in javascript, html, css. Backend part will be implemented in TBA.
-Project is implemented using object oriented design and loosely coupled architecture. The idea is to support multiple presentation layers (div, html5 canvas, etc), multiple user input (human vs computer), multiple data access layers (local, remote - rest json api, cloud storage, etc) and so on. Each part can be replacable.
+Introduction
+Train is a logical game similar to old game snake. The tricky part is that
+there is usualy only one way out of the labirint full of items the train
+has to take with it.
 
-Originaly developed by Golem in assembler for MS-DOS.
+Idea and game originaly developed by Golem in assembler for MS-DOS.
+
+Technologies
+	frontend - javascript, html, css. 
+	backend - TBA
+
+Design
+The aim is to create loosely coupled and object oriented design using javascript.
+Idealy each component is easily replacable by another.
+This allows us to implement for example multiple views: one that is using div+css,
+another that is using html5 canvas, etc.
+
+Frontend part runs completely in the browser. As we are quite flexibile with html
+in browser, one could design bunch of specific levels, not just standard rectangle
+type (e.g. wide screen full HD level). Html ensures that game is playable on all 
+current and future platforms like pc, mobile, television, consoles, etc.
+
+Backend part is TBD, but we want to support both standalone and remove versions.
+Standalone means all levels are loaded in the beginning to the browser and no
+internet connection is required. Remote means the levels are loaded from the server.
+This can be specific host or a cloud. Remove would allow to play custom levels
+created by community.
+
+Dependencies
+All components except current view are written in POJO - plain old javascript.
+Current view engine depends on jQuery and it's DOM and CSS manipulations. As discussed
+before, this can be easily replacable with another view engine.
+
+Implementation
+To avoid dependencies and heavy external libraries, many core components are implemented
+using plain old javascript:
+- binding and event handling with correct context of the event handler (clock, keyboard).
+- clock
+- classes and inheritance. We developed simple helper function that sets up the inheritance.
+
+Testing
+Browsers included in testing: FF, IE, Chrome
+
+Extensions
+Plan is to provide level editor to allow community to create new levels.
+It should be also possible to easily create new graphics for a view engine and
+configure it to be used.
+
+Learning
+The project is relatively simple and one can benefit from studying source codes.
+As many core components is written in plain javascript including class inheritance
+and event handling in correct context.
+
+
