@@ -48,7 +48,9 @@ configure it to be used.
 
 Learning
 The project is relatively simple and one can benefit from studying source codes.
-As many core components is written in plain javascript including class inheritance
-and event handling in correct context.
+Almost all core components are written in plain javascript including class inheritance
+and event handling with correct context.
+Source codes are well documented. Aim is also given on KISS rule and self explaining
+names.
 
 

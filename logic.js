@@ -58,9 +58,12 @@ function logic() {
 	
 	this.tick = function (app) {
 		var level = app.level;
-		var locomotive = level.train.locomotive;
+		var train = level.train;
+		var locomotive = train.locomotive;
+		var jewelData = null;
 		level.index++;
 		
+		// shall train move?
 		if (level.index >= app.config.ticksPerStep) {
 			level.index = 0;
 			
@@ -72,15 +75,77 @@ function logic() {
 			
 			// if running, detect colision and stop if necessary
 			if (level.isStatusRunning() && this.detectCrash(app)) {
-					level.setStatusCrashed();
-					locomotive.setCrashing();
-				};	
+				level.setStatusCrashed();
+				locomotive.setCrashing();
+			};
+			
+			// check if there is a jewel to add
+			if (level.isStatusRunning()) {
+				jewelData = this.detectJewel(app);
+			};
 			
 			// move if all previous checks passed
 			if (level.isStatusRunning()) {
-				locomotive.move();
+				train.move();
+			};
+			
+			// add wagon?
+			if (jewelData != null) {
+				this.addWagon(jewelData, level);
 			};
 		}
+	};
+	
+	this.addWagon = function(jewelData, level) {
+		var train = level.train;
+		var lastWagon = jewelData.lastWagon;
+		
+		// remove jewel
+		var w = this.removeFromJewels(jewelData, level.jewels);
+		
+		// set position
+		w.x = lastWagon.x;
+		w.y = lastWagon.y;
+		w.direction = lastWagon.direction;
+		
+		// set type
+		this.toWagonType(w);
+		
+		// add wagon
+		train.addWagon(w);
+	};
+	
+	this.toWagonType = function (w) {
+		w.type = "wagon";
+	};
+	
+	this.removeFromJewels = function (jewelData, jewels) {
+		var j = jewels[jewelData.index];
+		jewels.splice(jewelData.index, 1); // splice returns not usable object (maybe already garbage collected?)
+		return j;
+	};
+	
+	this.detectJewel = function (app) {
+		var train = app.level.train;
+		var locomotive = train.locomotive;
+		var jewels = app.level.jewels;
+		var position = locomotive.getFuturePosition();
+		var jewelData = null;
+		
+		// detect colision
+		for (var i = 0; i < jewels.length; i++) {
+			if (this.isColision(position, jewels[i])) {
+				jewelData = {};
+				jewelData.index = i;
+				break;
+			};
+		};
+		
+		if (jewelData != null) {
+			jewelData.lastWagon = train.getLastWagonPosition();
+		};
+		
+		return jewelData;
 	};
 		
 	this.detectCrash = function (app) {

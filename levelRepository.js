@@ -44,8 +44,8 @@ function levelRepository(config) {
 		var jewels = [];
 		
 		var j = new levelItem();
-		j.x = 5;
-		j.y = 3;
+		j.x = 4;
+		j.y = 2;
 		j.type = "jewel"
 		jewels.push(j);
 		
@@ -55,26 +55,30 @@ function levelRepository(config) {
 		var walls = [];
 		for (var x = 0; x < l.sizeX; x++) {
 			// build top wall
-			var w = new wall();
+			var w = new levelItem();
+			w.type = "wall";
 			w.x = x;
 			w.y = 0;
 			walls.push(w);
 			
 			// build bottom wall
-			var w = new wall();
+			var w = new levelItem();
+			w.type = "wall";
 			w.x = x;
 			w.y = l.sizeY - 1;
 			walls.push(w);
 		};
 		for (var y = 1; y < l.sizeY - 1; y++) {
 			// build left wall
-			var w = new wall();
+			var w = new levelItem();
+			w.type = "wall";
 			w.x = 0;
 			w.y = y;
 			walls.push(w);
 			
 			// build right wall
-			var w = new wall();
+			var w = new levelItem();
+			w.type = "wall";
 			w.x = l.sizeX - 1;
 			w.y = y;
 			walls.push(w);
@@ -102,7 +106,7 @@ function levelRepository(config) {
 		items.push(l.train.locomotive);
 		
 		// jewels
-		for (var key in l.jewels) { 
+		for (var key in l.jewels) {
 			var j = l.jewels[key];
 			items.push(j); 
 		}

@@ -68,6 +68,12 @@ function view() {
 		d.name = "wall";
 		d.addImage(this.imageBasePath + "wall.jpg");
 		this.images[d.name] = d;
+		
+		// wagon data
+		var d = new imageData();
+		d.name = "wagon";
+		d.addImage(this.imageBasePath + "wagon.jpg");
+		this.images[d.name] = d;
 	};
 	
 	this.initHtml = function (viewModel) {

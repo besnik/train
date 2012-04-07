@@ -31,4 +31,10 @@ function levelItem() {
 	this.setLeftDirection  = function () { this.direction = "left";  };
 	this.setDownDirection  = function () { this.direction = "down";  };
 	this.setUpDirection    = function () { this.direction = "up";    };
+	
+	this.setPositionFrom = function (item) {
+		this.x = item.x;
+		this.y = item.y;
+		this.direction = item.direction;
+	};
 }

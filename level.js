@@ -1,4 +1,4 @@
-/* 
+/*
 level class
 	holds all domain data and state for the level
 **************************************************/
@@ -16,7 +16,7 @@ function level() {
 	this.viewModel = null;
 	
 	// moving state
-	this.index = 0;
+	this.index = -1; // first tick increments to correct 0 index so images are matching
 	this.status = "new"; // "new", "running", "crashed"
 	this.setStatusNew = function () { this.status = "new"; }
 	this.setStatusRunning = function () { this.status = "running"; }
