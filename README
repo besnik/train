@@ -20,7 +20,7 @@ in browser, one could design bunch of specific levels, not just standard rectang
 type (e.g. wide screen full HD level). Html ensures that game is playable on all 
 current and future platforms like pc, mobile, television, consoles, etc.
 
-Backend part is TBD, but we want to support both standalone and remove versions.
+Backend part is TBD, but we want to support both standalone and remote versions.
 Standalone means all levels are loaded in the beginning to the browser and no
 internet connection is required. Remote means the levels are loaded from the server.
 This can be specific host or a cloud. Remove would allow to play custom levels

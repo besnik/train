@@ -40,6 +40,12 @@ function levelRepository(config) {
 		var t = new train(loc);
 		l.train = t;
 		
+		// gate
+		var g = new gate();
+		g.x = 1;
+		g.y = 4;
+		l.gate = g;
+		
 		// jewels
 		var jewels = [];
 		
@@ -104,6 +110,9 @@ function levelRepository(config) {
 		
 		// locomotive
 		items.push(l.train.locomotive);
+		
+		// gate
+		items.push(l.gate);
 		
 		// jewels
 		for (var key in l.jewels) {

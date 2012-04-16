@@ -15,13 +15,13 @@ function level() {
 	this.jewels = null;
 	this.viewModel = null;
 	
-	// moving state
+	// moving index
 	this.index = -1; // first tick increments to correct 0 index so images are matching
-	this.status = "new"; // "new", "running", "crashed"
-	this.setStatusNew = function () { this.status = "new"; }
-	this.setStatusRunning = function () { this.status = "running"; }
-	this.setStatusCrashed = function () { this.status = "crashed"; }
-	this.isStatusNew = function () { return this.status === "new"; }
-	this.isStatusRunning = function () { return this.status === "running"; }
-	this.isStatusCrashed = function () { return this.status === "crashed"; }
+	
+	// state
+	this.state = "loaded"; // "loaded", "finished"
+	this.setStateLoaded = function () { this.state = "loaded"; }
+	this.setStateFinished = function () { this.state = "finished"; }
+	this.isStateLoaded = function () { return this.state === "loaded"; }
+	this.isStateFinished = function () { return this.state === "finished"; }
 }

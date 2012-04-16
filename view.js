@@ -62,6 +62,27 @@ function view() {
 		d.addImage(this.imageBasePath + "jewel3.jpg");
 		d.addImage(this.imageBasePath + "jewel4.jpg");
 		this.images[d.name] = d;
+		
+		// gate
+		var d = new imageData();
+		d.name = "gate";
+		d.addImage(this.imageBasePath + "gate.jpg");
+		this.images[d.name] = d;
+
+		// gate opening
+		var d = new imageData();
+		d.name = "gateOpening";
+		d.addImage(this.imageBasePath + "gateOpening1.jpg");
+		d.addImage(this.imageBasePath + "gateOpening2.jpg");
+		d.addImage(this.imageBasePath + "gateOpening3.jpg");
+		d.addImage(this.imageBasePath + "gateOpening4.jpg");
+		this.images[d.name] = d;
+		
+		// gate opened
+		var d = new imageData();
+		d.name = "gateOpened";
+		d.addImage(this.imageBasePath + "gateOpened.jpg");
+		this.images[d.name] = d;
 
 		// wall data
 		var d = new imageData();

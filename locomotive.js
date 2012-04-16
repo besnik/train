@@ -13,8 +13,8 @@ function locomotive() {
 	// initialize base type
 	locomotive.baseCtor.call(this); 
 
-	// attributes and override
-	this.type = "locomotive";
+		// attributes and override
+		this.type = "locomotive";
 	
 	// methods
 	this.getFuturePosition = function () {
@@ -28,9 +28,9 @@ function locomotive() {
 		return clone; // we are actually interested only in (x,y)
 	};
 	
-	this.setCrashing = function () { this.type = "locomotiveCrashing"; };
-	this.setCrashed = function () { this.type = "locomotiveCrashed"; };
-	this.isCrashing = function () { return this.type = "locomotiveCrashing"; };
+	this.setTypeCrashing = function () { this.type = "locomotiveCrashing"; };
+	this.setTypeCrashed = function () { this.type = "locomotiveCrashed"; };
+	this.isTypeCrashing = function () { return this.type = "locomotiveCrashing"; };
 }
 
 

@@ -50,4 +50,13 @@ function train(locomotive) {
 			direction: w.direction
 		};
 	};
+	
+	// state
+	this.state = "stopped"; // "stopped", "running", "crashed"
+	this.setStateStopped = function () { this.state = "stopped"; }
+	this.setStateRunning = function () { this.state = "running"; }
+	this.setStateCrashed = function () { this.state = "crashed"; }
+	this.isStateStopped = function () { return this.state === "stopped"; }
+	this.isStateRunning = function () { return this.state === "running"; }
+	this.isStateCrashed = function () { return this.state === "crashed"; }
 }

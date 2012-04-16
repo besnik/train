@@ -14,7 +14,8 @@ public methods
 function levelItem() {
 	this.x = 0;
 	this.y = 0;
-	this.type = "";
+	this.type = "";		// used for rendering
+	this.state = null;	// used for domain logic
 	this.direction = "right";
 	this.step = 1;
 	

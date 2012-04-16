@@ -12,15 +12,16 @@ public methods
 function logic() {
 	
 	this.keyDown = function (key, app) {
-		this.setLevelRunning(key, app);
+		this.setTrainRunning(key, app);
 		this.handleClock(key, app);
 		this.handleTrain(key, app);
 	};
 	
-	this.setLevelRunning = function (key, app) {
-		if (app.level.isStatusNew()) { 
+	this.setTrainRunning = function (key, app) {
+		var train = app.level.train;
+		if (train.isStateStopped()) { 
 			if (key == 37 || key == 39 || key == 40 || key == 38) {
-				app.level.setStatusRunning(); 
+				train.setStateRunning(); 
 			}
 		}
 	};
@@ -58,42 +59,80 @@ function logic() {
 	
 	this.tick = function (app) {
 		var level = app.level;
-		var train = level.train;
-		var locomotive = train.locomotive;
-		var jewelData = null;
+		var context = { jewelData: null };
 		level.index++;
 		
-		// shall train move?
+		// shall move items in level?
 		if (level.index >= app.config.ticksPerStep) {
 			level.index = 0;
 			
-			// if crashed and train is finished with crashing animation, set to crashed animation
-			if (level.isStatusCrashed() && locomotive.isCrashing()) { 
-				locomotive.setCrashed();
-				// maybe show message to restart level?
-			}
-			
-			// if running, detect colision and stop if necessary
-			if (level.isStatusRunning() && this.detectCrash(app)) {
-				level.setStatusCrashed();
-				locomotive.setCrashing();
-			};
-			
-			// check if there is a jewel to add
-			if (level.isStatusRunning()) {
-				jewelData = this.detectJewel(app);
-			};
-			
-			// move if all previous checks passed
-			if (level.isStatusRunning()) {
-				train.move();
-			};
-			
-			// add wagon?
-			if (jewelData != null) {
-				this.addWagon(jewelData, level);
-			};
+			this.changeAnimations(app, context);
+			this.beforeMove(app, context);
+			this.move(app, context);
+			this.afterMove(app, context);
 		}
+	};
+	
+	this.changeAnimations = function (app, context) {
+		var level = app.level;
+		var gate = level.gate;
+		var train = level.train;
+		var locomotive = train.locomotive;
+	
+		// finish gate animation
+		if (gate.isStateOpened() && gate.isTypeOpening()) { gate.setTypeOpened(); }
+		
+		// if train is crashed and locomotive is finished with crashing animation, set to crashed animation
+		if (train.isStateCrashed() && locomotive.isTypeCrashing()) { 
+			locomotive.setTypeCrashed();
+			// maybe show message to restart level?
+		}
+	};
+	
+	this.beforeMove = function (app, context) {
+		var level = app.level;
+		var train = level.train;
+		var locomotive = train.locomotive;
+
+		// if train is running, detect colision and stop if necessary
+		if (train.isStateRunning() && this.detectCrash(app)) {
+			train.setStateCrashed();		// state
+			locomotive.setTypeCrashing();	// animation
+		};
+		
+		// check if there is a jewel to add to the train
+		if (train.isStateRunning()) { 
+			context.jewelData = this.detectJewel(app); 
+		};
+	};
+	
+	this.move = function (app, context) {
+		var level = app.level;
+		var train = level.train;
+		
+		// at this point all checks that could stop the train passed
+		if (train.isStateRunning()) { train.move();	};
+	};
+	
+	this.afterMove = function (app, context) {
+		var level = app.level;
+	
+		// add wagon?
+		var jewelData = context.jewelData;
+		if (jewelData != null) { 
+			this.addWagon(jewelData, level); 
+			this.jewelTaken(app, context);
+		};
+	};
+	
+	this.jewelTaken = function(app, context) {
+		var gate = app.level.gate;
+		
+		// all jewels taken? open gate
+		if (app.level.jewels.length == 0 && gate.isStateClosed()) {
+			gate.setStateOpened();	// state
+			gate.setTypeOpening();	// animation
+		};
 	};
 	
 	this.addWagon = function(jewelData, level) {
@@ -115,9 +154,7 @@ function logic() {
 		train.addWagon(w);
 	};
 	
-	this.toWagonType = function (w) {
-		w.type = "wagon";
-	};
+	this.toWagonType = function (w) { w.type = "wagon";	};
 	
 	this.removeFromJewels = function (jewelData, jewels) {
 		var j = jewels[jewelData.index];
