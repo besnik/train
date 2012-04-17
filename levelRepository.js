@@ -31,6 +31,12 @@ function levelRepository(config) {
 		l.sizeY = 6;
 		l.config = this.config;
 		
+		// message
+		var m = new message();
+		m.text = "Test level finished!";
+		l.message = m;
+		
+		
 		// locomotive
 		var loc = new locomotive();
 		loc.x = 3;
@@ -99,6 +105,7 @@ function levelRepository(config) {
 		
 		viewModel.sizeX = l.sizeX;
 		viewModel.sizeY = l.sizeY;
+		viewModel.message = l.message;
 		
 		var items = [];
 		
@@ -108,11 +115,11 @@ function levelRepository(config) {
 			items.push(w); 
 		}
 		
-		// locomotive
-		items.push(l.train.locomotive);
-		
 		// gate
 		items.push(l.gate);
+		
+		// locomotive
+		items.push(l.train.locomotive);
 		
 		// jewels
 		for (var key in l.jewels) {

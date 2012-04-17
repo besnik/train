@@ -118,6 +118,11 @@ function view() {
 		// validation
 		if (typeof viewModel === "undefined" || typeof viewModel.items === "undefined") { return; }
 		
+		this.renderItems(viewModel);
+		this.renderMessage(viewModel);
+	};
+	
+	this.renderItems = function (viewModel) {
 		// get items to render
 		var items = viewModel.items;
 		
@@ -145,6 +150,10 @@ function view() {
 		}
 		
 		this.incrementImages();
+	};
+	
+	this.renderMessage = function (viewModel) {
+		
 	};
 	
 	this.getImagePath = function (item) {

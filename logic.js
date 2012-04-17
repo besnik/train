@@ -59,18 +59,37 @@ function logic() {
 	
 	this.tick = function (app) {
 		var level = app.level;
-		var context = { jewelData: null };
+		
 		level.index++;
 		
-		// shall move items in level?
+		// shall logic be executed?
 		if (level.index >= app.config.ticksPerStep) {
 			level.index = 0;
 			
+			this.processMove(app);
+			this.processFinished(app);
+		}
+	};
+	
+	this.processMove = function (app) {
+		var level = app.level;
+		var context = { jewelData: null };
+		
+		if (level.isStateLoaded()) {
 			this.changeAnimations(app, context);
 			this.beforeMove(app, context);
 			this.move(app, context);
 			this.afterMove(app, context);
 		}
+	};
+	
+	this.processFinished = function (app) {
+		var level = app.level;
+		var message = level.message;
+	
+		if (level.isStateFinished() && !message.isDisplayed) {
+			message.updateState();
+		};
 	};
 	
 	this.changeAnimations = function (app, context) {
@@ -93,6 +112,12 @@ function logic() {
 		var level = app.level;
 		var train = level.train;
 		var locomotive = train.locomotive;
+		
+		// is gate reached?
+		if (train.isStateRunning() && this.detectGate(app)) {
+			train.setStateStopped();
+			level.setStateFinished();
+		};
 
 		// if train is running, detect colision and stop if necessary
 		if (train.isStateRunning() && this.detectCrash(app)) {
@@ -171,7 +196,7 @@ function logic() {
 		
 		// detect colision
 		for (var i = 0; i < jewels.length; i++) {
-			if (this.isColision(position, jewels[i])) {
+			if (this.isCollision(position, jewels[i])) {
 				jewelData = {};
 				jewelData.index = i;
 				break;
@@ -184,6 +209,13 @@ function logic() {
 		
 		return jewelData;
 	};
+	
+	this.detectGate = function (app) {
+		var locomotive = app.level.train.locomotive;
+		var gate = app.level.gate;
+		
+		return this.isCollision(locomotive, gate);
+	};
 		
 	this.detectCrash = function (app) {
 		// 1. get future train position
@@ -193,21 +225,28 @@ function logic() {
 		var isCrashed = false;
 		var locomotive = app.level.train.locomotive;
 		var walls = app.level.walls;
+		var gate = app.level.gate;
 		
 		var position = locomotive.getFuturePosition();
 		
+		// check walls
 		for (var i = 0; i < walls.length; i++) {
-			if (this.isColision(position, walls[i])) {
+			if (this.isCollision(position, walls[i])) {
 				isCrashed = true;
 				break;
 			};
 		};
 		
+		// check gate
+		if (gate.isStateClosed() && this.isCollision(position, gate)) {
+			isCrashed = true;
+		};
+		
 		return isCrashed;
 	};
 	
-	this.isColision = function (o1, o2) {
+	this.isCollision = function (o1, o2) {
 		return (o1.x === o2.x && o1.y === o2.y);
 	};
-	
+
 }
