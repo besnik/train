@@ -17,6 +17,7 @@ function keyboard(callback, callbackScope) {
 	if (typeof callbackScope !== "object") { throw new Error("callbackScope parameter must be an object!"); }
 	
 	document.onkeydown = function (e) {
+    if (typeof e === "undefined") { e = window.event; } // ie fix
 		var key =  ("which" in e) ? e.which : e.keyCode;
 		callback.call(callbackScope, { which: key }); // set "this" to right context for callback execution
 	}
