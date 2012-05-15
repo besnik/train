@@ -14,11 +14,35 @@ function view() {
 	this.textureSize = 50;
 	this.imageBasePath = "images/";
 	this.images = {}; // hash table of image data with state
+	this.messageArea = {}; // holds state of message with next level info
 	
 	this.init = function (viewModel) {
 		this.validateViewModel(viewModel);
 		this.initHtml(viewModel);
 		this.initImages();
+		this.initMessageArea();
+	};
+	
+	this.initMessageArea = function () {
+		var e = this.messageArea.element = $("<div />");	// create new element 
+		e.css({ "position": "absolute", "display": "none" });	// initially not visible
+
+		// calculate size and position
+		var l = this.level;
+		e.css({ "left": "0px", "top": "0px" });
+		e.css({ "width": l.css("width"), "height": l.css("height") });
+		
+		// make use of repeated background image
+		var imageUrl = this.images["wall"].getImage();
+		e.css({ "background-image": "url('" + imageUrl + "')",  });
+
+		// connect to DOM and model
+		this.level.append(e);
+	};
+	
+	this.slideMessageArea = function () {
+		var e = this.messageArea.element;
+		e.slideDown();
 	};
 	
 	this.validateViewModel = function (viewModel) {
@@ -119,7 +143,6 @@ function view() {
 		if (typeof viewModel === "undefined" || typeof viewModel.items === "undefined") { return; }
 		
 		this.renderItems(viewModel);
-		this.renderMessage(viewModel);
 	};
 	
 	this.renderItems = function (viewModel) {
@@ -150,10 +173,6 @@ function view() {
 		}
 		
 		this.incrementImages();
-	};
-	
-	this.renderMessage = function (viewModel) {
-		
 	};
 	
 	this.getImagePath = function (item) {
