@@ -30,6 +30,7 @@ function levelRepository(config) {
 		l.sizeX = 8;
 		l.sizeY = 6;
 		l.config = this.config;
+		l.nextLevel = {	name: "test level", num: 1, password: "START"	};
 		
 		// message
 		var m = new message();

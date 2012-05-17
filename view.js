@@ -3,54 +3,81 @@ class view
 	renders given model to the browser's UI
 	
 public methods
-	init - initialize the view layer and underlying browser
+	initLevel - initialize the view layer and underlying DOM elements
 	render - updates browser's UI from given model
+
+public properties
+	messageArea - use show() and hide() methods
 
 dependencies
 	jQuery
 ********************************************/
 function view() {
 	this.level = $("#level");
+	this.levelItems = null; // div that holds all items of level
 	this.textureSize = 50;
 	this.imageBasePath = "images/";
 	this.images = {}; // hash table of image data with state
 	this.messageArea = {}; // holds state of message with next level info
 	
-	this.init = function (viewModel) {
-		this.validateViewModel(viewModel);
-		this.initHtml(viewModel);
-		this.initImages();
+	// initialize view instance. shall be called only once per view instance life time
+	this.init = function () {
+		// validation
+		if (typeof this.level === "undefined" || this.level.length == 0) { throw new Error("DIV element representing level was not found."); }
+	
+		// create level items
+		var e = this.levelItems = $("<div id=\"levelItems\" />");	// create new element 
+		this.level.append(e);
+		
+		// init image repository
+		this.initImageRepository();
+		
+		// create message area
 		this.initMessageArea();
 	};
-	
-	this.initMessageArea = function () {
-		var e = this.messageArea.element = $("<div />");	// create new element 
-		e.css({ "position": "absolute", "display": "none" });	// initially not visible
 
-		// calculate size and position
-		var l = this.level;
-		e.css({ "left": "0px", "top": "0px" });
-		e.css({ "width": l.css("width"), "height": l.css("height") });
+	// initialize level
+	this.initLevel = function (viewModel) {
+		// validation
+		if (typeof viewModel === "undefined") { throw new Error("Missing input parameter (view model)."); }
 		
+		// remove all elements inside the div that holds images
+		this.levelItems.children().remove();
+		
+		// set up level size of level container and message area
+		var width = (viewModel.sizeX * this.textureSize) + "px";
+		var height = (viewModel.sizeY * this.textureSize) + "px";
+		this.level.css({ "width": width, "height": height });
+		this.messageArea.element.css({ "width": width, "height": height });
+	};
+	
+	// creates message area div 
+	this.initMessageArea = function () {
+		var e = this.messageArea.element = $("<div class=\"messageArea\"><div class=\"messageAreaLevel\">LEVEL 1</div><div class=\"messageAreaPassword\">PASSWORD: XYZ</div></div>");	// create new element 
+		e.css({"display": "none" }); // initially not visible
+
 		// make use of repeated background image
 		var imageUrl = this.images["wall"].getImage();
 		e.css({ "background-image": "url('" + imageUrl + "')",  });
 
-		// connect to DOM and model
+		// connect to DOM and model. message area is independent of the level
 		this.level.append(e);
+		
+		// methods for setting text
+		this.messageArea.level = function (s) { this.element.find("div.messageAreaLevel").text("LEVEL " + s); };
+		this.messageArea.password = function (s) { this.element.find("div.messageAreaPassword").text("password " + s); };
+		this.messageArea.hide = function () { this.element.slideUp(); };
+		this.messageArea.show = function (model) {  
+			// 1. set text
+			this.level(model.level);
+			this.password(model.password);
+			
+			// 2. slide down
+			this.element.slideDown();
+		};
 	};
 	
-	this.slideMessageArea = function () {
-		var e = this.messageArea.element;
-		e.slideDown();
-	};
-	
-	this.validateViewModel = function (viewModel) {
-		if (typeof viewModel === "undefined") { throw new Error("Missing input parameter (view model)."); }
-		if (typeof this.level === "undefined" || this.level.length == 0) { throw new Error("DIV element representing level was not found."); }
-	};
-	
-	this.initImages = function () {
+	this.initImageRepository = function () {
 		// train data
 		var d = new imageData();
 		d.name = "locomotive";
@@ -121,16 +148,6 @@ function view() {
 		this.images[d.name] = d;
 	};
 	
-	this.initHtml = function (viewModel) {
-		// remove all elements inside the div
-		this.level.children().remove();
-		
-		// set up level size
-		var width = (viewModel.sizeX * this.textureSize) + "px";
-		var height = (viewModel.sizeY * this.textureSize) + "px";
-		this.level.css({ "width": width, "height": height });
-	};
-	
 	this.incrementImages = function () {
 		for (var key in this.images) {
 			var d = this.images[key];
@@ -139,13 +156,8 @@ function view() {
 	};
 	
 	this.render = function (viewModel) {
-		// validation
 		if (typeof viewModel === "undefined" || typeof viewModel.items === "undefined") { return; }
-		
-		this.renderItems(viewModel);
-	};
 	
-	this.renderItems = function (viewModel) {
 		// get items to render
 		var items = viewModel.items;
 		
@@ -162,7 +174,7 @@ function view() {
 				viewModel.element = $("<img />").css({ "position": "absolute" });
 				
 				// connect to DOM and model
-				this.level.append(viewModel.element);
+				this.levelItems.append(viewModel.element);
 				item.viewModel = viewModel;
 			};
 			
@@ -187,5 +199,7 @@ function view() {
 		return result;
 	};
 
+	// call initialization as last step when all methods are initialized - executed during creating instance of the view
+	this.init();
 }
 

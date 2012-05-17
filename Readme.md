@@ -3,14 +3,15 @@ Train is a logical game similar to old game snake. The tricky part is that
 there is usualy only one way out of the labirint full of items the train
 has to take with it.
 
-Idea and game originaly developed by Golem in assembler for MS-DOS.
+Idea and game originaly developed by Miroslav Nemecek aka Golem in assembler for MS-DOS.
+See also [wiki](/besnik/train/wiki) pages for more info.
 
 # Technologies
 * frontend - javascript, html, css. 
 * backend - TBA
 
 ## Design
-The aim is to create loosely coupled and object oriented design using javascript.
+The aim is to create loosely coupled and object oriented design using plain javascript.
 Idealy each component is easily replacable by another.
 This allows us to implement for example multiple views: one that is using div+css,
 another that is using html5 canvas, etc.
@@ -47,12 +48,13 @@ Browsers included in testing: FF, IE, Chrome
 Plan is to provide level editor to allow community to create new levels.
 It should be also possible to easily create new graphics for a view engine and
 configure it to be used.
-Would be nice to have also new set of graphics in high resolution.
+Would be nice to have also new set of graphics in high resolution; or increase fps by having
+images representing more frames.
 
 # Learning
 The project is relatively simple and one can benefit from studying the source codes.
 Almost all core components are written in plain javascript including class inheritance
-and event handling with context management.
+and event handling with scope management.
 Source codes are well documented. Aim is also given on KISS rule and self explaining
 simple names.
 

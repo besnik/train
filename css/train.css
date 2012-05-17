@@ -1,0 +1,19 @@
+.messageAreaLevel, .messageAreaPassword {
+	position: absolute;
+	color: #fff;
+	background-color: #000;
+}
+
+.messageAreaLevel { 
+	left: 50%;
+	top: 30%;
+}
+
+.messageAreaPassword {
+	left: 50%;
+	top: 70%;
+}
+
+.messageArea {
+	opacity: 0.99;
+}

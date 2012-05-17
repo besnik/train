@@ -1,6 +1,7 @@
 /* 
 class logic
-	represents business logic of the train
+	represents business logic of the train.
+	stateless service.
 
 ctor parameters
 	n/a
@@ -15,11 +16,20 @@ function logic() {
 		this.setTrainRunning(key, app);
 		this.handleClock(key, app);
 		this.handleTrain(key, app);
+		this.loadNextLevel(key, app);
+	};
+	
+	this.loadNextLevel = function (key, app) {
+		var level = app.level;
+		if (level.isStateMessage()) {
+			app.loadNextLevel( level.nextLevel.name, function (app) { app.services.v.messageArea.hide(); } );
+		};
 	};
 	
 	this.setTrainRunning = function (key, app) {
-		var train = app.level.train;
-		if (train.isStateStopped()) { 
+		var level = app.level;
+		var train = level.train;
+		if (level.isStateLoaded() && train.isStateStopped()) { 
 			if (key == 37 || key == 39 || key == 40 || key == 38) {
 				train.setStateRunning(); 
 			}
@@ -29,7 +39,7 @@ function logic() {
 	this.handleClock = function (key, app) {
 		var clock = app.services.c;
 		switch (key) {
-			case 32:
+			case 80: // "p" - pause
 				if (clock.isRunning()) {
 					clock.stop();
 				} else {
@@ -68,6 +78,7 @@ function logic() {
 			
 			this.processMove(app);
 			this.processFinished(app);
+			this.processMessage(app);
 		}
 	};
 	
@@ -86,10 +97,21 @@ function logic() {
 	this.processFinished = function (app) {
 		var level = app.level;
 		var message = level.message;
-	
-		if (level.isStateFinished() && !message.isDisplayed) {
+		
+		if (level.isStateFinished()) {
 			message.updateState();
+			if (message.isDisplayed) { level.setStateMessage(); }
 		};
+	};
+	
+	this.processMessage = function (app) {
+		var level = app.level;
+		
+		if (level.isStateMessage()) {
+			var l = level.nextLevel;
+			var m = app.services.v.messageArea;
+			m.show( { level: l.name, password: l.password } );
+		}
 	};
 	
 	this.changeAnimations = function (app, context) {

@@ -20,6 +20,12 @@ function application() {
 	};
 	
     this.keyDown = function (e) { this.services.l.keyDown(e.which, this); };
+	
+	this.loadNextLevel = function (name, callback) {
+		this.level = this.services.r.load(name);
+		this.services.v.initLevel(this.level.viewModel);
+		if (typeof callback === "function") { callback(this); };
+	};
     
     this.setup = function () {
 		// setup config
@@ -34,7 +40,9 @@ function application() {
 		this.services.c = new clock(this.config.clockInterval, this.tick, this);
 		
 		// load and init level
-		this.level = this.services.r.load("test level");
-		this.services.v.init(this.level.viewModel);
+		this.loadNextLevel("test level");
+		
+		// start ticking
+		this.services.c.start();
     };
 }
