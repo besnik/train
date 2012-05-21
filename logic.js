@@ -170,6 +170,9 @@ function logic() {
 			this.addWagon(jewelData, level); 
 			this.jewelTaken(app, context);
 		};
+		
+		// sync points to view model
+		level.viewModel.points = level.points;
 	};
 	
 	this.jewelTaken = function(app, context) {
@@ -188,6 +191,9 @@ function logic() {
 		
 		// remove jewel
 		var w = this.removeFromJewels(jewelData, level.jewels);
+		
+		// increase level points
+		if (typeof w.points === "number") {	level.points += w.points; };
 		
 		// set position
 		w.x = lastWagon.x;

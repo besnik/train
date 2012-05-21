@@ -9,6 +9,7 @@ function level() {
 	this.name = "";
 	this.config = null; // global config object
 	this.nextLevel = null; // next level data
+	this.points = 0;
 	
 	// objects
 	this.train = null;

@@ -59,7 +59,8 @@ function levelRepository(config) {
 		var j = new levelItem();
 		j.x = 4;
 		j.y = 2;
-		j.type = "jewel"
+		j.type = "jewel";
+		j.points = 10;
 		jewels.push(j);
 		
 		l.jewels = jewels;
@@ -107,6 +108,7 @@ function levelRepository(config) {
 		viewModel.sizeX = l.sizeX;
 		viewModel.sizeY = l.sizeY;
 		viewModel.message = l.message;
+		viewModel.points = 0;
 		
 		var items = [];
 		

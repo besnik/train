@@ -16,6 +16,12 @@ Idealy each component is easily replacable by another.
 This allows us to implement for example multiple views: one that is using div+css,
 another that is using html5 canvas, etc.
 
+## MVC - Model View Controller
+Core functionality is designed using a variation of MVC design pattern. View engine and 
+domain model is separated. Components are connected using *application* type that acts as
+controller. Level data are loaded using level repository. View engine is getting view model
+to render.
+
 **Frontend part** runs completely in the browser. As we are quite flexibile with html
 in browser, one could design bunch of specific levels, not just standard rectangle
 type (e.g. wide screen full HD level :-) Html ensures that game is playable on all 
