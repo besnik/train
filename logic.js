@@ -22,7 +22,7 @@ function logic() {
 	this.loadNextLevel = function (key, app) {
 		var level = app.level;
 		if (level.isStateMessage()) {
-			app.loadNextLevel( level.nextLevel.name, function (app) { app.services.v.messageArea.hide(); } );
+			app.loadNextLevel( level.nextLevel.name, function (app) { app.services.v.slidingWall.hide(); } );
 		};
 	};
 	
@@ -78,7 +78,7 @@ function logic() {
 			
 			this.processMove(app);
 			this.processFinished(app);
-			this.processMessage(app);
+			this.processMessage(app); // TODO: this is called multiple times when in message state. refactor!
 		}
 	};
 	
@@ -109,8 +109,8 @@ function logic() {
 		
 		if (level.isStateMessage()) {
 			var l = level.nextLevel;
-			var m = app.services.v.messageArea;
-			m.show( { level: l.name, password: l.password } );
+			var sw = app.services.v.slidingWall;
+			sw.show( { level: l.name, password: l.password } );
 		}
 	};
 	

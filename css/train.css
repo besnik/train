@@ -1,19 +1,39 @@
-.messageAreaLevel, .messageAreaPassword {
+/* Sliding Wall
+*************************************************/
+.slidingWall {
+	opacity: 0.99;
+}
+
+.slidingWall .level, .slidingWall .password {
 	position: absolute;
 	color: #fff;
 	background-color: #000;
 }
 
-.messageAreaLevel { 
+.slidingWall .level { 
 	left: 50%;
 	top: 30%;
 }
 
-.messageAreaPassword {
+.slidingWall .password {
 	left: 50%;
 	top: 70%;
 }
 
-.messageArea {
-	opacity: 0.99;
+
+/* Status Bar 
+*************************************************/
+.statusBar { 
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	background-color: #000;
 }
+
+.statusBar div { float: left; color: #0F0; /* green */ }
+.statusBar .scene { float:right; }
+.statusBar .pwd { position: absolute; left:35%; }
+
+.statusBar span { color: #FF0; /* yellow */ }
+.statusBar .pwd { color: #D00; /* red    */ }
