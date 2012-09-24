@@ -13,9 +13,6 @@ public methods
 function logic() {
 	
 	this.keyDown = function (key, app) {
-		this.setTrainRunning(key, app);
-		this.handleClock(key, app);
-		this.handleTrain(key, app);
 		this.loadNextLevel(key, app);
 	};
 	
@@ -25,51 +22,11 @@ function logic() {
 			app.loadNextLevel( level.nextLevel.name, function (app) { app.services.v.slidingWall.hide(); } );
 		};
 	};
-	
-	this.setTrainRunning = function (key, app) {
-		var level = app.level;
-		var train = level.train;
-		if (level.isStateLoaded() && train.isStateStopped()) { 
-			if (key == 37 || key == 39 || key == 40 || key == 38) {
-				train.setStateRunning(); 
-			}
-		}
-	};
-	
-	this.handleClock = function (key, app) {
-		var clock = app.services.c;
-		switch (key) {
-			case 80: // "p" - pause
-				if (clock.isRunning()) {
-					clock.stop();
-				} else {
-					clock.start();
-				}
-			break;
-		}
-	};
-	
-	this.handleTrain = function (key, app) {
-		var l = app.level.train.locomotive;
-		switch (key) {
-			case 39:
-				l.setRightDirection();
-				break;
-			case 37:
-				l.setLeftDirection();
-				break;
-			case 40:
-				l.setDownDirection();
-				break;
-			case 38:
-				l.setUpDirection();
-				break;
-		}
-	};
+
+
 	
 	this.tick = function (app) {
 		var level = app.level;
-		
 		level.index++;
 		
 		// shall logic be executed?

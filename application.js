@@ -16,12 +16,13 @@ function application() {
     
     this.tick = function () {
 		this.services.l.tick(this);
+		//this.services.l.tick.call(this.services.l, this);
 		this.services.v.render(this.level.viewModel);
 	};
 	
     this.keyDown = function (e) { this.services.l.keyDown(e.which, this); };
 	
-	this.loadNextLevel = function (name, callback) {
+	this.loadLevel = function (name, callback) {
 		this.level = this.services.r.load(name);
 		this.services.v.initLevel(this.level.viewModel);
 		if (typeof callback === "function") { callback(this); };
@@ -33,14 +34,14 @@ function application() {
 		this.config.ticksPerStep = 4;
 	
 		// setup services
-        this.services.l = new logic();
+        this.services.l = new logicContext();
         this.services.k = new keyboard(this.keyDown, this);
         this.services.v = new view();
         this.services.r = new levelRepository(this.config);
 		this.services.c = new clock(this.config.clockInterval, this.tick, this);
 		
 		// load and init level
-		this.loadNextLevel("test level");
+		this.loadLevel("test level");
 		
 		// start ticking
 		this.services.c.start();

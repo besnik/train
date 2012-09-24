@@ -8,10 +8,10 @@ function gate() {
 	this.setTypeOpened = function () { this.type = "gateOpened"; }
 	this.isTypeOpening = function () { return this.type = "gateOpening"; }
 	
-	this.state = "closed"; // "closed", "opened"
+	/*this.state = "closed"; // "closed", "opened"
 	this.setStateOpened = function () { this.state = "opened"; }
 	this.isStateClosed = function () { return this.state === "closed"; }
-	this.isStateOpened = function () { return this.state === "opened"; }
+	this.isStateOpened = function () { return this.state === "opened"; }*/
 }
 
 // type inheritance setup (prototype manipulation)
