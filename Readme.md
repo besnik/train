@@ -4,7 +4,7 @@ there is usualy only one way out of the labirint full of items the train
 has to take with it.
 
 Idea and game originaly developed by Miroslav Nemecek aka Golem in assembler for MS-DOS.
-See also [wiki](/besnik/train/wiki) pages for more info.
+See also [wiki](https://github.com/besnik/train/wiki) pages for more info.
 
 # Technologies
 * frontend - javascript, html, css. 
